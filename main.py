@@ -6,8 +6,6 @@ __license__ = "MIT"
 Decision Tree Implementation from scratch using Iris Dataset
 '''
 
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import balanced_accuracy_score, fbeta_score, confusion_matrix
 from ID3 import ID3DecisionTree
 from utils import *
 
@@ -44,23 +42,11 @@ def main():
 
     print(print_accuracies(acc_dict))
     plot_accuracies(acc_dict, 'Decision Tree Accuracy')
-    # plot_f1(f1_beta_half_dict, 'Decision Tree F1 Score (Beta = 0.5)')
-    # plot_f1(f1_beta_1_dict, 'Decision Tree F1 Score (Beta = 1)')
-    # plot_f1(f1_beta_2_dict, 'Decision Tree F1 Score (Beta = 2)')
+    plot_f1(f1_beta_half_dict, 'Decision Tree F1 Score (Beta = 0.5)')
+    plot_f1(f1_beta_1_dict, 'Decision Tree F1 Score (Beta = 1)')
+    plot_f1(f1_beta_2_dict, 'Decision Tree F1 Score (Beta = 2)')
     plot_roc(roc_dict, 'Decision Tree ROC Curve')
-
-
-def test():
-    x, y = load_dataset()
-    dt = ID3DecisionTree(nbins=5)
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
-    tree = dt.fit(X_train, y_train)
-    y_hat = dt.predict(X_test)
-    true = np.where(y_test == 'setosa', 0, 1)
-    pred = np.where(y_hat == 'setosa', 0, 1)
-    print(get_tpr_fpr(true, pred))
 
 
 if __name__ == '__main__':
     main()
-    # test()
